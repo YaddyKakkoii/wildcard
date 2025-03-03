@@ -14,7 +14,7 @@ display_header() {
   clear
     echo -e "${BCYAN}"
     echo "╔══════════════════════════════════════════════════╗"
-    printf "║  %-46s  ║\n" "KILLER VPN MANAGER PRO"
+    printf "║  %-46s  ║\n" "WILDCARD MANAGER PRO"
     echo "╠══════════════════════════════════════════════════╣"
 printf "║ %-20s:${BWHITE}%-28s${BCYAN}║\n" "Tanggal" "$(date '+%A, %d %B %Y')"
 printf "║ %-20s:${BWHITE}%-28s${BCYAN}║\n" "Waktu" "$(date '+%H:%M:%S')"
