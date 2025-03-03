@@ -43,7 +43,7 @@ Jika belum terinstall:
 
 ```
 git clone https://github.com/YaddyKakkoii/wildcard.git
-cd wc
+cd wildcard
 chmod +x *
 ./menu
 ```
