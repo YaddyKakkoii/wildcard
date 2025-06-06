@@ -110,95 +110,45 @@ def wait_domain(update, context):
     return 'wait_ip'
 
 
-
 def wait_ip(update, context):
-
     user_id = update.message.from_user.id
-
     user_data = user_ips[user_id]
-
     user_data['ip'] = update.message.text
 
-
-
     if 'domain' not in user_data:
-
         context.bot.send_message(chat_id=user_id, text="Terjadi kesalahan. Silakan coba lagi.")
-
         return cancel(update, context)
 
-
-
-    # Membuat string acak untuk subdomain
-
     random_string = ''.join(random.choices(string.ascii_lowercase + string.digits, k=4))
-
     subdomain = f"code{random_string}"
-
-
-
-    # Mengelola subdomain di Cloudflare
 
     cf = CloudFlare(email=CLOUDFLARE_EMAIL, token=CLOUDFLARE_API_KEY)
 
-
-
     # Menentukan zone id berdasarkan pilihan domain
-
     if user_data['domain'] == 'vpzx.my.id':
-
         zone_id = '71f63e965cc206d3c8864cb8af7dd24a'
-
     elif user_data['domain'] == 'xscript.biz.id':
-
-        zone_id = 'cf0d6902c4b44ed33e30ff78c1a8a3be
-
+        zone_id = 'cf0d6902c4b44ed33e30ff78c1a8a3be'  # Fixed line
     else:
-
         context.bot.send_message(chat_id=user_id, text="Terjadi kesalahan. Silakan coba lagi.")
-
         return cancel(update, context)
 
-
-
     record = {
-
         'type': 'A',
-
         'name': f"{subdomain}.{user_data['domain']}",
-
         'content': user_data['ip'],
-
     }
 
-
-
     try:
-
         cf.zones.dns_records.post(zone_id, data=record)
-
-        # Mengirimkan pesan ke pengguna dengan subdomain yang dibuat
-
         message = f"Subdomain Berhasil dibuat.\nCreated by @Candravpnz\n\nDOMAIN : {user_data['domain']}\nIP : {user_data['ip']}\n\nSubdomain Anda :\n{subdomain}.{user_data['domain']}\n\nThx.\nID Anda : {user_id}\n"
-
         context.bot.send_message(chat_id=user_id, text=message)
-
     except Exception as e:
-
         print(f"Error creating DNS record: {e}")
-
         context.bot.send_message(chat_id=user_id, text="Terjadi kesalahan saat menciptakan rekaman DNS. Silakan coba lagi.")
 
-
-
-    # Menghapus data pengguna dari kamus setelah digunakan
-
     del user_ips[user_id]
-
-
-
     return cancel(update, context)
-
 
 
 def main():
