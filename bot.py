@@ -1,23 +1,12 @@
+# -*- coding: utf-8 -*-
+
 import os
-
 from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove
-
 from telegram.ext import Updater, CommandHandler, MessageHandler, ConversationHandler, Filters
-
 from CloudFlare import CloudFlare
-
 import random
-
 import string
-
-
-
-
 TELEGRAM_TOKEN = '7515727179:AAERXtmR2LZLaOESZIXcKn1b6SeixDiYiww'
-
-
-
-# Ganti dengan API Key Cloudflare Anda
 
 CLOUDFLARE_API_KEY = '068c7fa582ad66bb65243a6cd0175f02419c8'
 
